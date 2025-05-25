@@ -42,7 +42,7 @@ module.exports = {
     'comma-dangle': [1, 'never'],
     'comma-spacing': [1, { before: false, after: true }],
     'comma-style': [1, 'last'],
-    'complexity': 1,
+    'complexity': 0,
     'computed-property-spacing': 1,
     'consistent-return': 0,
     'consistent-this': 1,

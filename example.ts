@@ -1,2 +1,2 @@
-import { detectTerminal } from './index';
+import { detectTerminal } from '.';
 console.log(detectTerminal());

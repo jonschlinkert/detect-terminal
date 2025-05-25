@@ -1,18 +1,20 @@
 {
   "name": "detect-terminal",
-  "description": "Detect the terminal program currently being used, with support for iTerm, Terminal.app, Hyper, iTerm, ConEmu, Cmde,r Alacritty, Xterm, Terminator, Termux, Kitty, and many others. This can't be done reliably in all cases, but it's useful when available.",
-  "version": "0.0.2",
+  "description": "Detect the terminal program currently being used, with support for iTerm, Terminal.app, Hyper, iTerm2, ConEmu, Cmde,r Alacritty, Xterm, Terminator, Termux, Kitty, and others. Detection is based on environment variables and process-level indicators to identify the terminal in use. This can't be done reliably in all cases, but it's useful when available.",
+  "version": "1.0.0",
   "license": "MIT",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "eslint": "npx eslint --ext .ts .",
+    "tsup": "npm run clean && npx tsup"
+  },
   "main": "dist/index.js",
   "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
-  "scripts": {
-    "eslint": "npx eslint --ext .ts .",
-    "tsup": "npx tsup"
-  },
   "devDependencies": {
     "@types/node": "^20.12.7",
     "@typescript-eslint/eslint-plugin": "^7.7.1",
@@ -20,6 +22,7 @@
     "esbuild-register": "^3.5.0",
     "eslint": "^8.57.0",
     "gulp-format-md": "^2.0.0",
+    "prettier": "^3.5.3",
     "ts-mocha": "^10.0.0",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
@@ -53,6 +56,13 @@
     ],
     "reflinks": [
       "verb"
+    ],
+    "related": [
+      "open-file-manager",
+      "open-file-manager-dialog",
+      "open-finder-dialog",
+      "open-linux-file-dialog",
+      "open-windows-file-dialog"
     ],
     "lint": {
       "reflinks": true
