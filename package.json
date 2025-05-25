@@ -1,0 +1,61 @@
+{
+  "name": "detect-terminal",
+  "description": "Detect the terminal program currently being used, with support for iTerm, Terminal.app, Hyper, iTerm, ConEmu, Cmde,r Alacritty, Xterm, Terminator, Termux, Kitty, and many others. This can't be done reliably in all cases, but it's useful when available.",
+  "version": "0.0.2",
+  "license": "MIT",
+  "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "eslint": "npx eslint --ext .ts .",
+    "tsup": "npx tsup"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "@typescript-eslint/eslint-plugin": "^7.7.1",
+    "@typescript-eslint/parser": "^7.7.1",
+    "esbuild-register": "^3.5.0",
+    "eslint": "^8.57.0",
+    "gulp-format-md": "^2.0.0",
+    "ts-mocha": "^10.0.0",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "tsup": "^8.3.0",
+    "typescript": "^5.4.5"
+  },
+  "keywords": [
+    "alacritty",
+    "cli",
+    "cmder",
+    "conemu",
+    "console",
+    "env",
+    "hyper",
+    "iterm",
+    "kitty",
+    "terminal",
+    "terminal.app",
+    "terminator",
+    "termux",
+    "xterm"
+  ],
+  "verb": {
+    "toc": false,
+    "layout": "default",
+    "tasks": [
+      "readme"
+    ],
+    "plugins": [
+      "gulp-format-md"
+    ],
+    "reflinks": [
+      "verb"
+    ],
+    "lint": {
+      "reflinks": true
+    }
+  }
+}
