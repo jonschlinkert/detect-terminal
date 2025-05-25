@@ -26,29 +26,72 @@ console.log(detectTerminal()) //=> "iterm" (or whatever terminal you're using)
 
 The following terminals are supported. Detection is based on environment variables and process-level indicators to identify the terminal in use.
 
+* bash
+* zsh
+* windows_cmd
+* powershell
+* vscode
+* gnome_terminal
+* iterm
+* windows_terminal
+* xterm
+* tmux
+* terminal_app
+* terminal
+* konsole
+* xfce4_terminal
+* terminator
+* alacritty
+* wezterm
+* putty
+* node
+* sh
+* fish
+* mate_terminal
+* rxvt
+* csh
+* tcsh
+* linux_console
+* hyper
+* warp
+* qterminal
+* screen
+* eterm
+* dopamine
+* conhost
+* ksh
+* truecolor_terminal
+* termux
+* vt100
+* kitty
+
+**Note:**
+
+* Some items are shell names (like `cmd`, `sh` (Bourne Shell), `bash`, `zsh`, `fish`, etc.) because the code's process-title detection maps those as possible values, and the code wasn't able to find a better terminal identifier.
+* The names are as returned by the detection methods (i.e., `terminal_app`, `gnome_terminal`, etc.) and not the terminal program's real executable names. This approach was takenn to avoid confusion with the actual executable names, which can vary across platforms and installations.
+* Fallback/auto-generated names (using sanitized env values) are also possible in the code but are not explicitly named in the code.
+
+## Terminal Detection
+
 | Terminal | Detection (ENV / Process) | Description |
 | --- | --- | --- |
 | [Alacritty](https://github.com/alacritty/alacritty) | `TERM=alacritty` or `TERM_PROGRAM=alacritty` | Cross-platform, GPU-accelerated terminal emulator |
 | [Apple Terminal](https://support.apple.com/guide/terminal/welcome/mac) | `TERM_PROGRAM=Apple_Terminal` | macOS default terminal emulator |
 | [Cmd.exe](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cmd) | `process.title=cmd` or `COMSPEC=cmd.exe` | Windows Command Prompt |
 | [Eterm](http://www.eterm.org/) | `TERM_PROGRAM=Eterm` | Enlightened Terminal Emulator |
-| [Gnome Terminal](https://help.gnome.org/users/gnome-terminal/stable/) | `TERM_PROGRAM=gnome-terminal` or `TERM_PROGRAM=gnome-terminal-server` | GNOME terminal emulator |
-| [Guake](http://guake-project.org/) | `TERM=guake` | Dropdown terminal for GNOME |
+| [Gnome Terminal](https://help.gnome.org/users/gnome-terminal/stable/) | `TERM_PROGRAM=gnome-terminal`, `TERM_PROGRAM=gnome-terminal-server`, or `VTE_VERSION` detection | GNOME terminal emulator |
 | [Hyper](https://hyper.is/) | `TERM_PROGRAM=Hyper` | JS/HTML/CSS terminal emulator |
 | [iTerm2](https://iterm2.com/) | `TERM_PROGRAM=iTerm.app` or `iTerm` or `iTerm2` | Advanced terminal for macOS |
-| [Konsole](https://konsole.kde.org/) | `TERM_PROGRAM=konsole` | KDE terminal emulator |
-| [LilyTerm](https://github.com/Tetralet/LilyTerm) | `TERM=lilyterm` | Lightweight X Terminal Emulator |
+| [Kitty](https://sw.kovidgoyal.net/kitty/) | `TERM_PROGRAM=kitty` or `TERM=kitty` | GPU-accelerated terminal emulator |
+| [Konsole](https://konsole.kde.org/) | `TERM_PROGRAM=konsole` or environment variables containing "konsole" | KDE terminal emulator |
 | [MATE Terminal](https://mate-desktop.org/) | `TERM_PROGRAM=mate-terminal` | MATE terminal emulator |
 | [PowerShell](https://github.com/PowerShell/PowerShell) | `TERM_PROGRAM=powershell` or `process.title=powershell` or `COMSPEC=powershell.exe` or `process.title=pwsh` | Powerful Windows/macOS/Linux shell |
 | [PuTTY](https://www.putty.org/) | `TERM_PROGRAM=putty` | Popular SSH/Telnet client for Windows |
 | [QTerminal](https://github.com/lxqt/qterminal) | `TERM_PROGRAM=qterminal` | Lightweight terminal for LXQt |
-| [ROXTerm](https://roxterm.sourceforge.io/) | `TERM=roxterm` | Tabbed terminal emulator |
 | [rxvt/rxvt-unicode](http://rxvt.sourceforge.net/) | `TERM=rxvt*`, `TERM_PROGRAM=rxvt` | Lightweight terminal emulator and its Unicode variant |
-| [Sakura](https://launchpad.net/sakura) | `TERM=sakura` | GTK-based terminal |
-| [st](https://st.suckless.org/) | `TERM=st` | Simple terminal for X |
 | [screen](https://www.gnu.org/software/screen/) | `TERM=screen` | Terminal multiplexer |
 | [Terminator](https://gnometerminator.blogspot.com/p/introduction.html) | `TERM_PROGRAM=terminator` | Multiple terminals per window |
-| [Termux](https://termux.com/) | `TERM_PROGRAM=termux` | Android terminal emulator |
+| [Termux](https://termux.com/) | `TERM_PROGRAM=termux` or `TERMUX_VERSION` on Android | Android terminal emulator |
 | [tmux](https://github.com/tmux/tmux) | `TERM=tmux` | Terminal multiplexer |
 | [VS Code](https://code.visualstudio.com/) | `TERM_PROGRAM=vscode` or `VSCODE_PID` or `TERM_PROGRAM_VERSION` contains `vscode` | Visual Studio Code integrated terminal |
 | [Warp](https://www.warp.dev/) | `TERM_PROGRAM=warp` | Modern Rust-based terminal |
@@ -64,10 +107,24 @@ The following terminals are supported. Detection is based on environment variabl
 * Variable values are normalized to provide a consistent terminal identifier, regardless of differences in capitalization or formatting.
 * Some Windows terminals are detected using Windows-specific variables such as `COMSPEC` or `WT_SESSION`.
 * Terminal multiplexers such as `tmux` and `GNU Screen` are identified through the `TERM` variable when active.
-* When running inside Visual Studio Code’s integrated terminal, detection relies on specific environment variables set by VS Code.
+* When running inside Visual Studio Code's integrated terminal, detection relies on specific environment variables set by VS Code.
 * Distinctions are maintained between terminal emulators (e.g., iTerm2, Konsole) and shells (e.g., bash, zsh), with shells excluded from the main detection table.
 * In the absence of a recognized terminal, a fallback sanitizer produces a normalized identifier or `unknown` as a last resort.
 * The detection logic is designed to cover terminals across UNIX-like systems (Linux, macOS) and Windows, providing broad compatibility for diverse development environments.
+
+## History
+
+### v1.1.0
+
+* Improved terminal detection accuracy with more advanced detection methods
+* Added `VTE_VERSION` detection to properly identify `GNOME` Terminal when it masquerades as xterm
+* Implemented environment variable scanning to detect Konsole terminals that advertise as xterm
+* Enhanced `COLORTERM` precedence handling for better terminal identification
+* Added macOS path parsing to extract application names from full paths
+* Improved Android/Termux detection with `TERMUX_VERSION` checks
+* Enhanced Windows Terminal detection with `WT_SESSION` prioritization and pwsh support
+* Added better error handling with timeouts for shell execution
+* Refined process title matching with more precise regex patterns
 
 ## Related
 
