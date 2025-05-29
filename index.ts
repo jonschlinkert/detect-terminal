@@ -13,16 +13,6 @@ export const detectFromEnv = (): string | null => {
     return 'termux';
   }
 
-  // Check COLORTERM first (most reliable for some terminals)
-  const colorTerm = process.env.COLORTERM?.trim()?.toLowerCase();
-  if (colorTerm === 'truecolor' || colorTerm === '24bit') {
-    return 'truecolor_terminal';
-  }
-
-  if (colorTerm) {
-    return colorTerm.replace(/[^a-z0-9]+/g, '_');
-  }
-
   // Check TERM_PROGRAM (reliable for many modern terminals)
   let termProgram = process.env.TERM_PROGRAM?.trim()?.toLowerCase();
 
@@ -108,9 +98,20 @@ export const detectFromEnv = (): string | null => {
     if (/alacritty/.test(term)) return 'alacritty';
     if (/dopamine/.test(term)) return 'dopamine';
     if (/kitty/.test(term)) return 'kitty';
+    if (/ghostty/.test(term)) return 'ghostty';
 
     // Fallback: sanitize TERM value
     return term.replace(/[^a-z0-9]+/g, '_');
+  }
+
+  // Fallback to COLORTERM
+  const colorTerm = process.env.COLORTERM?.trim()?.toLowerCase();
+  if (colorTerm === 'truecolor' || colorTerm === '24bit') {
+    return 'truecolor_terminal';
+  }
+
+  if (colorTerm) {
+    return colorTerm.replace(/[^a-z0-9]+/g, '_');
   }
 
   return null;
