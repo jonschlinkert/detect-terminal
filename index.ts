@@ -136,7 +136,6 @@ export const detectFromShell = (): string | null => {
       if (/cmd\.exe/i.test(shell)) return 'cmd';
       if (/wt\.exe/i.test(shell)) return 'windows_terminal';
       if (/conhost\.exe/i.test(shell)) return 'conhost';
-
       return 'windows_cmd';
     }
 
