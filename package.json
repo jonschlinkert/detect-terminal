@@ -1,7 +1,7 @@
 {
   "name": "detect-terminal",
   "description": "Detect the terminal program currently being used, with support for iTerm, Terminal.app, Hyper, iTerm2, ConEmu, Cmde,r Alacritty, Xterm, Terminator, Termux, Kitty, and others. Detection is based on environment variables and process-level indicators to identify the terminal in use. This can't be done reliably in all cases, but it's useful when available.",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "license": "MIT",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
   "scripts": {
